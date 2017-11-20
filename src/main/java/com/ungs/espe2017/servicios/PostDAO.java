@@ -1,4 +1,4 @@
-package com.tp.servicios;
+package com.ungs.espe2017.servicios;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 
-import com.tp.domain.model.Post;
 
+import com.ungs.espe2017.domain.model.Post;
 
 
 public class PostDAO {

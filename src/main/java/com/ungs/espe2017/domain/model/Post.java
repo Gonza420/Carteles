@@ -1,4 +1,4 @@
-package com.tp.domain.model;
+package com.ungs.espe2017.domain.model;
 
 
 import java.io.Serializable;

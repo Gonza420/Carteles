@@ -1,4 +1,4 @@
-package com.tp.servicios;
+package com.ungs.espe2017.servicios;
 
 
 import java.util.ArrayList;
@@ -11,10 +11,8 @@ import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.tp.domain.model.Post;
-import com.tp.servicios.ServiciosPost;
 
-
+import com.ungs.espe2017.domain.model.Post;
 
 public class ServiciosPost {
 	
