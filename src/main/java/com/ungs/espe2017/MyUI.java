@@ -42,7 +42,7 @@ public class MyUI extends UI {
 	
 	ServiciosPost servicio = ServiciosPost.createDemoServicio();
 	Binder<Post> binder = new Binder<>(Post.class);
-	PostForm postForm = new PostForm();
+	
 	
 	Post nuevoPost;
 	
