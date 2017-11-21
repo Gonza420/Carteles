@@ -24,7 +24,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import com.ungs.espe2017.domain.model.Post;
-import com.ungs.espe2017.PostForm;
+
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -114,7 +114,7 @@ public class MyUI extends UI {
         posteos.setSizeFull();
         left.setExpandRatio(posteos, 1);
         
-        HorizontalLayout mainLayout = new HorizontalLayout(left, postForm);
+        HorizontalLayout mainLayout = new HorizontalLayout(left);
         mainLayout.setSizeFull();
         mainLayout.setExpandRatio(left, 1);
 
@@ -125,7 +125,7 @@ public class MyUI extends UI {
 	   public void refreshContenido() {
 		   List<Post> poste = servicio.findAll(); 
 		   posteos.setItems(poste);
-	        postForm.setVisible(false);
+	        
 	    }
 	   
 	   private void bindearNuevo() throws ValidationException{
