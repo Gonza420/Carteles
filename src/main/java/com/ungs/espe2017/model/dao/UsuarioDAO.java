@@ -1,4 +1,4 @@
-package com.ungs.espe2017.servicios;
+package com.ungs.espe2017.model.dao;
 
 import java.util.List;
 
@@ -6,52 +6,46 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import com.ungs.espe2017.model.domain.Usuario;
 
 
-import com.ungs.espe2017.domain.model.Post;
-
-
-public class PostDAO {
-		
-	
+public class UsuarioDAO {
 		
 		
-		
-		
-		public static void guardarPost(Post p){
+		public static void guardarUsuario(Usuario u){
 			EntityManagerFactory emf;
-			emf = Persistence.createEntityManagerFactory("PersistenciaPost");
+			emf = Persistence.createEntityManagerFactory("PersistenciaUsuario");
 			EntityManager entityManager = emf.createEntityManager();
 			entityManager.getTransaction().begin();	
-			entityManager.persist(p);
+			entityManager.persist(u);
 			entityManager.getTransaction().commit();
 			entityManager.close();
 		}
 		
-		public List<Post> recuperarPost (){
+		public List<Usuario> recuperarUsuario (){
 			EntityManagerFactory emf;
-			emf = Persistence.createEntityManagerFactory( "PersistenciaPost" );
+			emf = Persistence.createEntityManagerFactory( "PersistenciaUsuario" );
 			EntityManager entityManager = emf.createEntityManager();
 			entityManager.getTransaction().begin();
-	        List<Post> result = entityManager.createQuery( "from Post", Post.class ).getResultList();
+	        List<Usuario> result = entityManager.createQuery( "from Usuario", Usuario.class ).getResultList();
 	        entityManager.getTransaction().commit();
 	        entityManager.close();
 	        return result;
 		}
 		private static void imprimirtodo(){
 			EntityManagerFactory emf;
-			emf = Persistence.createEntityManagerFactory( "PersistenciaPost" );
+			emf = Persistence.createEntityManagerFactory( "PersistenciaUsuario" );
 			EntityManager entityManager = emf.createEntityManager();
-			List<Post> emps = entityManager.createQuery("FROM Post").getResultList();
-			System.out.println("Hay" + emps.size() + "posts");
+			List<Usuario> emps = entityManager.createQuery("FROM Usuario").getResultList();
+			System.out.println("Hay" + emps.size() + "usuarios");
 		}
 		
 		
  public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	 	Post p = new Post();
-	 	p.setContenido("probando dao");
-	 	guardarPost(p);
+	 	Usuario u = new Usuario();
+	 	u.setNombre("probando dao");
+	 	guardarUsuario(u);
 	 	imprimirtodo();
 	}
 

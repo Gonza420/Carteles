@@ -1,9 +1,9 @@
-package com.ungs.espe2017.domain.model;
+package com.ungs.espe2017.model.domain;
 
 
 import java.io.Serializable;
 
-import org.apache.commons.beanutils.BeanUtils;
+
 
 
 

@@ -1,4 +1,4 @@
-package com.ungs.espe2017.servicios;
+package com.ungs.espe2017.model.service;
 
 
 import java.util.ArrayList;
@@ -9,10 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-
-import com.ungs.espe2017.domain.model.Post;
+import com.ungs.espe2017.model.domain.Post;
 
 public class ServiciosPost {
 	
