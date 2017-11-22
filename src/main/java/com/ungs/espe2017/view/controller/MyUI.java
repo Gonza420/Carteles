@@ -1,4 +1,4 @@
-package com.ungs.espe2017;
+package com.ungs.espe2017.view.controller;
 
 import javax.servlet.annotation.WebServlet;
 
