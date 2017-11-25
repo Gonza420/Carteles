@@ -23,6 +23,10 @@ public class Post implements Serializable, Cloneable{
 
     private String contenido = "";
     
+    private double calificacion ;
+    
+    private double cantCal;
+    
     
     public Post(){
     	
@@ -43,6 +47,15 @@ public class Post implements Serializable, Cloneable{
     
     public void setContenido(String c){
     	this.contenido = c;
+    }
+    
+    public void setCalificacion(double c){
+    	this.calificacion = this.calificacion + c;
+    	this.cantCal ++;
+    }
+    
+    public double getCalificacion() {
+    	return this.calificacion/this.cantCal;
     }
     
     @Override

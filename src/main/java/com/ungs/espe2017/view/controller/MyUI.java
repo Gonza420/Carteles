@@ -1,6 +1,7 @@
 package com.ungs.espe2017.view.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -11,12 +12,15 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.selection.SelectionEvent;
+import com.vaadin.event.selection.SelectionListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.SingleSelect;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -30,13 +34,14 @@ import com.vaadin.ui.themes.ValoTheme;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+@SuppressWarnings("unchecked")
 @Theme("mytheme")
 public class MyUI extends UI {
 	Button postear = new Button("Postea!");
 	TextField entrada = new TextField();
 	Grid<Post> posteos = new Grid<>();
 	
-	
+	CalificaForm calificaForm = new CalificaForm();
 	ServiciosPost servicio = ServiciosPost.createDemoServicio();
 	Binder<Post> binder = new Binder<>(Post.class);
 	
@@ -94,11 +99,12 @@ public class MyUI extends UI {
         posteos.addColumn(Post::getContenido).setCaption("Posts");
        postear.setStyleName(ValoTheme.BUTTON_PRIMARY);
        postear.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-	
-       
-       refreshContenido();
+       posteos.setSelectionMode(Grid.SelectionMode.SINGLE);
+       posteos.addSelectionListener(event -> {
+    	   SingleSelect<Post> selection = posteos.asSingleSelect();
+    	   calificaForm.edit(selection);
+       });
 	}
-	
 	private void buildLayout() {
 	 
         HorizontalLayout actions = new HorizontalLayout(entrada, postear);
@@ -111,7 +117,7 @@ public class MyUI extends UI {
         posteos.setSizeFull();
         left.setExpandRatio(posteos, 1);
         
-        HorizontalLayout mainLayout = new HorizontalLayout(left);
+        HorizontalLayout mainLayout = new HorizontalLayout(left, calificaForm);
         mainLayout.setSizeFull();
         mainLayout.setExpandRatio(left, 1);
 
@@ -122,6 +128,7 @@ public class MyUI extends UI {
 	   public void refreshContenido() {
 		   List<Post> poste = servicio.findAll(); 
 		   posteos.setItems(poste);
+		   calificaForm.setVisible(false);
 	        
 	    }
 	   

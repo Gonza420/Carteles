@@ -30,6 +30,7 @@ public class ServiciosPost {
         		Post post = new Post();
         		post.setContenido(posteosv[i]);
         		servicioPost.save(post);
+        		servicioPost.guardarCal(3, post);
         	}
         	instance = servicioPost;
         }
@@ -54,7 +55,9 @@ public class ServiciosPost {
 		public synchronized List<Post> findAll() {
 			return findAll(null);
 		}
-		
+		public synchronized void guardarCal (double c, Post post ) {
+			post.setCalificacion(c);
+		}
 		public synchronized List<Post> findAll(String stringFilter) {
 			ArrayList<Post> arrayList = new ArrayList<>();
 			for (Post post : posteos.values()) {
