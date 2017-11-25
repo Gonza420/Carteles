@@ -37,7 +37,7 @@ public class MyUI extends UI {
 	Grid<Post> posteos = new Grid<>();
 	
 	
-	ServiciosPost servicio = ServiciosPost.createDemoServicio();
+	ServiciosPost servicio = new ServiciosPost();
 	Binder<Post> binder = new Binder<>(Post.class);
 	
 	
@@ -89,11 +89,11 @@ public class MyUI extends UI {
 
 	   
 		
-		List<Post> poste = servicio.findAll();
-        posteos.setItems(poste);
-        posteos.addColumn(Post::getContenido).setCaption("Posts");
-       postear.setStyleName(ValoTheme.BUTTON_PRIMARY);
-       postear.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+		//List<Post> poste = servicio.findAll();
+        //posteos.setItems(poste);
+        //posteos.addColumn(Post::getContenido).setCaption("Posts");
+       //postear.setStyleName(ValoTheme.BUTTON_PRIMARY);
+      // postear.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 	
        
        refreshContenido();

@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import com.ungs.espe2017.model.domain.Post;
+
 public class IGenericDAO<E>  implements GenericDAO<E>{
 	protected static EntityManagerFactory entityManagerFactory;
 
@@ -14,8 +16,8 @@ public class IGenericDAO<E>  implements GenericDAO<E>{
 	
 	@Override
 	public void guardar(E entidad) {
-		setUp();
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManagerFactory set = setUp();
+		EntityManager entityManager = set.createEntityManager();
 		entityManager.getTransaction().begin();
 		
 		entityManager.persist(entidad);
@@ -25,16 +27,29 @@ public class IGenericDAO<E>  implements GenericDAO<E>{
 		tearDown();
 		
 	}
+	
+	public List<E> ObtenerTodos(String tabla, Class<E> entidad) {	
+		setUp();
+		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+        List<E> lista = entityManager.createQuery(tabla, entidad).getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        tearDown();
+        
+        return lista;
+	}
 
 	protected void tearDown() {
 		entityManagerFactory.close();
 	}
 
-
-	protected void setUp() {
-		entityManagerFactory = Persistence.createEntityManagerFactory( "connect.jpa" );
+	protected EntityManagerFactory setUp() {
+		return entityManagerFactory = Persistence.createEntityManagerFactory( "connect.jpa" );
 	}
-
 
 	@Override
 	public E obtener(String id) {
@@ -43,12 +58,6 @@ public class IGenericDAO<E>  implements GenericDAO<E>{
 
 	@Override
 	public void eliminar(String id) {
-	}
-
-
-	@Override
-	public List<E> leer() {
-		return null;
 	}
 
 }

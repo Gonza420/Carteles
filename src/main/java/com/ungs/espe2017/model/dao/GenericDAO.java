@@ -12,5 +12,5 @@ public interface GenericDAO<E> {
 	public void guardar(E entidad);
 	public void eliminar(String id);
 	public E obtener(String id);
-	public List<E> leer();
+	public List<E> ObtenerTodos(String tabla, Class<E> entidad);
 }
