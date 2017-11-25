@@ -120,8 +120,6 @@ public class MyUI extends UI {
 	
 	
 	   public void refreshContenido() {
-		   List<Post> poste = servicio.findAll(); 
-		   posteos.setItems(poste);
 	        
 	    }
 	   
@@ -129,7 +127,6 @@ public class MyUI extends UI {
 		   binder.bind(entrada, Post::getContenido, Post::setContenido);
 		   nuevoPost = new Post();
 		   binder.setBean(nuevoPost);
-		   servicio.save(nuevoPost);
 		   refreshContenido();
 	   }
 

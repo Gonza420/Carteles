@@ -24,17 +24,6 @@ public class ServiciosPost {
 	private Post post = new Post();
 	 private HashMap<Long, Post> posteos = new HashMap<Long, Post>();
 	 
-	    public synchronized void save(Post entry) {
-	        if (entry.getId() == null) {
-	          entry.guardar(entry);
-	        }
-	    }
-	    
-		public synchronized List<Post> findAll() {
-			
-			List<Post> r = post.ObtenerTodos("from POST",(Class<Post>) post.getClass());
-			return r;
-		}
 		
 	
 	    

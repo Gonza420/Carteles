@@ -1,19 +1,15 @@
 package com.ungs.espe2017.model.domain;
 
 
-import java.io.Serializable;
-
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import com.ungs.espe2017.model.dao.IGenericDAO;
+import com.ungs.espe2017.model.dao.IPostDAO;
 
 
 @Entity
-public class Post  extends IGenericDAO<Post> implements Serializable, Cloneable{
+public class Post{
 
     private Long id;
 
@@ -47,15 +43,15 @@ public class Post  extends IGenericDAO<Post> implements Serializable, Cloneable{
         		
     }
     
-	@Override
-	public Post clone() throws CloneNotSupportedException {
-		return (Post) super.clone();
-	}
-	//TEST
-	public static void main(String[] args) {
-		Post prueba = new Post();
-		prueba.guardar(prueba);
-		prueba.ObtenerTodos("from post", (Class<Post>) prueba.getClass());
-	}
+    public static void main(String[] args) {
+		Post p = new Post();
+		
+		IPostDAO dao = new IPostDAO();
+		dao.crear(p);
+		
+		System.out.println("CANTIDAD POST" + dao.cantidadPost());				
+								
+		}
+
 }
 

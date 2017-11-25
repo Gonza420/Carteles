@@ -8,9 +8,10 @@ package com.ungs.espe2017.model.dao;
 
 import java.util.List;
 
-public interface GenericDAO<E> {
-	public void guardar(E entidad);
-	public void eliminar(String id);
-	public E obtener(String id);
-	public List<E> ObtenerTodos(String tabla, Class<E> entidad);
+public interface GenericDAO<T> {
+	public void crear(T t);
+	public void eliminar(T t);	
+	public T porId(long id);	
+	public List<T> todos();
+	public void actualizar(T t);
 }
