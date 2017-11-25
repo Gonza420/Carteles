@@ -20,6 +20,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 
 public class Postear extends VerticalLayout implements View  {
+/**
 	public static final String NAME = "Crea tu post";
 	Button postear = new Button("Postea!");
 	TextField entrada = new TextField();
@@ -52,7 +53,6 @@ public class Postear extends VerticalLayout implements View  {
         layout.addComponents(name, button);
         
         setContent(layout);
-        */
     	
     	
     }
@@ -106,4 +106,5 @@ public class Postear extends VerticalLayout implements View  {
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
+**/
 }

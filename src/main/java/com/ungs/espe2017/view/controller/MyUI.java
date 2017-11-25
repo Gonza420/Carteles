@@ -14,7 +14,6 @@ import com.vaadin.ui.UI;
 public class MyUI extends UI {
 	private static final long serialVersionUID = 1L;
 	private Navigator navigator;
-	private ServiciosUsuario userService = new ServiciosUsuario();
 	
 	
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
@@ -28,10 +27,10 @@ public class MyUI extends UI {
 	protected void init(VaadinRequest request) {
 		
 		navigator = new Navigator(this,this);
-		navigator.addView(Registrar.NAME, new Registrar());
 		navigator.addView(Login.NAME, new Login());
+		navigator.addView(Registrar.NAME, new Registrar());
+		navigator.addView(Inicio.NAME, new Inicio());
 		navigator.navigateTo(Login.NAME);
-//		navigator.navigateTo(VistaPrueba.NAME);
 		
 	}
 
