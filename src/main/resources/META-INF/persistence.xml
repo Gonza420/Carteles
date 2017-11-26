@@ -11,19 +11,18 @@
 
     <persistence-unit name="connect.jpa">
         <description>
-            Persistence unit para JPA
+            Persistence unit paraJPA
         </description>
-
-      
-        <class>Post</class>
+        <class>com.ungs.espe2017.model.domain.Post</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
       
         
 
         <properties>
             	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dataMining" />
+            	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/datamining" />
             	<property name="javax.persistence.jdbc.user" value="root" />
-		<property name="javax.persistence.jdbc.password" value="CONTRASEÑA" />
+		<property name="javax.persistence.jdbc.password" value="159357_j" />
 
  		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <property name="hibernate.show_sql" value="true" />

@@ -41,7 +41,7 @@ public class MyUI extends UI {
 	TextField entrada = new TextField();
 	Grid<Post> posteos = new Grid<>();
 	
-	CalificaForm calificaForm = new CalificaForm();
+	//CalificaForm calificaForm = new CalificaForm();
 	ServiciosPost servicio = ServiciosPost.createDemoServicio();
 	Binder<Post> binder = new Binder<>(Post.class);
 	
@@ -102,7 +102,7 @@ public class MyUI extends UI {
        posteos.setSelectionMode(Grid.SelectionMode.SINGLE);
        posteos.addSelectionListener(event -> {
     	   SingleSelect<Post> selection = posteos.asSingleSelect();
-    	   calificaForm.edit(selection);
+    	  // calificaForm.edit(selection);
        });
 	}
 	private void buildLayout() {
@@ -117,18 +117,18 @@ public class MyUI extends UI {
         posteos.setSizeFull();
         left.setExpandRatio(posteos, 1);
         
-        HorizontalLayout mainLayout = new HorizontalLayout(left, calificaForm);
-        mainLayout.setSizeFull();
-        mainLayout.setExpandRatio(left, 1);
+        //HorizontalLayout mainLayout = new HorizontalLayout(left, calificaForm);
+       // mainLayout.setSizeFull();
+        //mainLayout.setExpandRatio(left, 1);
 
-        setContent(mainLayout);
+      //  setContent(mainLayout);
 	}
 	
 	
 	   public void refreshContenido() {
 		   List<Post> poste = servicio.findAll(); 
 		   posteos.setItems(poste);
-		   calificaForm.setVisible(false);
+		   //calificaForm.setVisible(false);
 	        
 	    }
 	   
