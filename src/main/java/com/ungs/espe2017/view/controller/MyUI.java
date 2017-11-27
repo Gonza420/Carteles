@@ -41,8 +41,8 @@ public class MyUI extends UI {
 	TextField entrada = new TextField();
 	Grid<Post> posteos = new Grid<>();
 	
-	//CalificaForm calificaForm = new CalificaForm();
-	ServiciosPost servicio = ServiciosPost.createDemoServicio();
+	CalificaForm calificaForm = new CalificaForm();
+	ServiciosPost servicio = new ServiciosPost();
 	Binder<Post> binder = new Binder<>(Post.class);
 	
 	
@@ -54,22 +54,6 @@ public class MyUI extends UI {
     	configureComponents();
     	buildLayout();
     	
-    	
-    	/* final VerticalLayout layout = new VerticalLayout();
-        
-        final TextField name = new TextField();
-        name.setCaption("Type your name here:");
-
-        Button button = new Button("Click Me");
-        button.addClickListener(e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
-        });
-        
-        layout.addComponents(name, button);
-        
-        setContent(layout);
-        */
     	
     	
     }
@@ -84,7 +68,6 @@ public class MyUI extends UI {
 					try {
 						bindearNuevo();
 					} catch (ValidationException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -102,7 +85,7 @@ public class MyUI extends UI {
        posteos.setSelectionMode(Grid.SelectionMode.SINGLE);
        posteos.addSelectionListener(event -> {
     	   SingleSelect<Post> selection = posteos.asSingleSelect();
-    	  // calificaForm.edit(selection);
+    	   calificaForm.edit(selection);
        });
 	}
 	private void buildLayout() {
@@ -117,18 +100,18 @@ public class MyUI extends UI {
         posteos.setSizeFull();
         left.setExpandRatio(posteos, 1);
         
-        //HorizontalLayout mainLayout = new HorizontalLayout(left, calificaForm);
-       // mainLayout.setSizeFull();
-        //mainLayout.setExpandRatio(left, 1);
+        HorizontalLayout mainLayout = new HorizontalLayout(left, calificaForm);
+        mainLayout.setSizeFull();
+        mainLayout.setExpandRatio(left, 1);
 
-      //  setContent(mainLayout);
+        setContent(mainLayout);
 	}
 	
 	
 	   public void refreshContenido() {
 		   List<Post> poste = servicio.findAll(); 
 		   posteos.setItems(poste);
-		   //calificaForm.setVisible(false);
+		   calificaForm.setVisible(false);
 	        
 	    }
 	   
@@ -136,6 +119,7 @@ public class MyUI extends UI {
 		   binder.bind(entrada, Post::getContenido, Post::setContenido);
 		   nuevoPost = new Post();
 		   binder.setBean(nuevoPost);
+		   if(nuevoPost != null)
 		   servicio.save(nuevoPost);
 		   refreshContenido();
 	   }
