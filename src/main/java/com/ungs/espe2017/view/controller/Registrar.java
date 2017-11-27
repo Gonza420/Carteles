@@ -1,11 +1,21 @@
 package com.ungs.espe2017.view.controller;
 
+import com.ungs.espe2017.model.domain.Usuario;
 import com.ungs.espe2017.model.service.ServiciosUsuario;
+import com.vaadin.data.Binder;
+import com.vaadin.data.ValidationException;
+import com.vaadin.data.ValidationResult;
+import com.vaadin.data.Validator;
+import com.vaadin.data.ValueContext;
+import com.vaadin.data.converter.StringToIntegerConverter;
+import com.vaadin.data.converter.StringToLongConverter;
 import com.vaadin.navigator.View;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.PopupView;
 import com.vaadin.ui.TextField;
@@ -30,8 +40,7 @@ public class Registrar extends VerticalLayout implements View  {
 		private HorizontalLayout botones= new HorizontalLayout();
 		
 		//Componentes
-		private ServiciosUsuario usuarioService = new ServiciosUsuario();
-		
+			
 		private TextField nombre = new TextField("Ingresa tu nombre");
 	    
 	    private TextField email =  new TextField("Ingresa tu mail");
@@ -48,12 +57,18 @@ public class Registrar extends VerticalLayout implements View  {
 		
 		private PopupView popup = new PopupView("Pop it up", new VerticalLayout());
 		
+		//Servicios
+		private Binder<Usuario> usuarioBinder = new Binder<>();
+		
+		private ServiciosUsuario usuarioService = new ServiciosUsuario();
+		
 				
 		public Registrar() {
 			// TODO Auto-generated constructor stub
 			super();
 			cargarComponentes();
 			cargarListeners();
+			checkearRegistro();
 			
 		}
 		
@@ -78,26 +93,37 @@ public class Registrar extends VerticalLayout implements View  {
 				@Override
 				public void buttonClick(ClickEvent event) 
 				{
-					if(checkearRegistro())
+					Usuario user= new Usuario();
+					if(usuarioBinder.validate().isOk())
 					{
-						if(usuarioService.seAceptaRegistro(formulario)) 
-						{
-							getUI().getNavigator().navigateTo(Login.NAME);
-						}					
-						else {
-						popup.setPopupVisible(true);
-						VerticalLayout popupContent = new VerticalLayout();
-						popupContent.addComponent(new TextField("No se pudo registrar el usuario"));
-						popupContent.addComponent(new Button("cerrar"));
-				
-						// The component itself
-						PopupView popup = new PopupView("Pop it up", popupContent);
-						addComponent(popup);
-						}
+						try {
+						      usuarioBinder.writeBean(user);
+						      if(usuarioService.seAceptaRegistro(user)) 
+								{
+									getUI().getNavigator().navigateTo(Login.NAME);
+								}					
+								else {
+								Notification.show("ERROR:",
+							                  "Este usuario no se pudo registrar, intente nuevamente",
+							                  Notification.Type.HUMANIZED_MESSAGE);
+								}
+						      
+						    } 
+						catch (ValidationException e) {
+						      Notification.show("Person could not be saved, " +
+						        "please check error messages for each field.");
+						    }
 					}
 						
-					
+					else
+					{
+						// The component itself
+						Notification.show("ERROR:",
+				                  "Ingresa bien los campos",
+				                  Notification.Type.HUMANIZED_MESSAGE);
+					}
 				}
+						
 			});
 
 			atras_button.addClickListener(new Button.ClickListener() {
@@ -110,20 +136,62 @@ public class Registrar extends VerticalLayout implements View  {
 
 		}
 		
-		private void cargarPopUp() {
-			// Content for the PopupView
-
-			// The component itself
+		private void checkearRegistro()
+		{
+			// Shorthand for cases without extra configuration
+			usuarioBinder.forField(email)
+			   .asRequired("Campo requerido")
+			   .bind(Usuario::getEmail, Usuario::setEmail);
+			usuarioBinder.forField(nombre)
+			   .asRequired("Campo requerido")
+			   .bind(Usuario::getNombre, Usuario::setNombre);
+			usuarioBinder.forField(password)
+			   .asRequired("Campo requerido")
+			   .bind(Usuario::getPassword, Usuario::setPassword);
+			usuarioBinder.forField(password_control)
+			   .asRequired("Campo requerido")
+			   .withValidator(validadorPassword)
+			   .bind(Usuario::getPassword, Usuario::setPassword);
+				
 			
-			//addComponent(popup);
+			// long way of binding, usually used for more complex bindings
+			usuarioBinder.forField(cuil)
+			
+				.withValidator ( validadorCuil )
+	            .withConverter ( new StringToLongConverter ( "Debe contener solamente numeros" ) )
+	            //.withValidator ( convertidoCuil )
+				.bind(Usuario::getCuil, Usuario::setCuil);
+			 
+
+			
 		}
 		
-		private boolean checkearRegistro()
-		{
-			
-			
-			return true;
-		}
-
+		//creamos variables validadores para el campo que necesitamos
+		private Validator<String> validadorCuil = new Validator < String > ( ) {
+            @Override
+            public ValidationResult apply ( String str, ValueContext valueContext ) {
+            	if(str.length() > 9 || str.length() == 0) {
+            	   return  ValidationResult.ok () ;
+               } else {
+                  
+                   return  ValidationResult.error ( "Debe contener al menos 10 digitos" );
+               }
+            }
+        } ;
+		
+        private Validator<Integer> convertidoCuil = Validator.from ( value -> value >= 0, "Sea mayor o igual a cero." );
+        
+        private Validator<String> validadorPassword =  new Validator < String > ( ) {
+        		@Override
+                public ValidationResult apply ( String str, ValueContext valueContext ) {
+        			if(str.equals(password.getValue())) {
+                	   return  ValidationResult.ok () ;
+                   } else {
+                      
+                       return  ValidationResult.error ( "No coinciden las passwords" );
+                   }
+                }
+        };
+        		
 
 }

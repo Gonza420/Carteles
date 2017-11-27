@@ -21,7 +21,7 @@ public class Usuario implements Serializable, Cloneable{
     
     private String password;
     
-    private int cuil;
+    private Long cuil;
     
     private int cuit;
     
@@ -62,11 +62,11 @@ public class Usuario implements Serializable, Cloneable{
 		this.password = password;
 	}
 
-	public int getCuil() {
+	public Long getCuil() {
 		return cuil;
 	}
 
-	public void setCuil(int cuil) {
+	public void setCuil(Long cuil) {
 		this.cuil = cuil;
 	}
 

@@ -5,20 +5,30 @@ import com.vaadin.ui.FormLayout;
 
 public class ServiciosUsuario {
 
-	public boolean seAceptaLogin(FormLayout form_login) {
-		// TODO Auto-generated method stub
+	public boolean seAceptaLogin(Usuario user){
+		if(user.getEmail().equals( buscarUsuario(user).getEmail()))
+			return true;
+		else
 		return false;
 	}
 	
-	public boolean seAceptaRegistro(FormLayout form_registro) {
-		// TODO Auto-generated method stub
-		//return new Usuario();
-		return false;
+	
+	public boolean seAceptaRegistro(Usuario user){
+		if(user.getEmail().equals( buscarUsuario(user).getEmail()))
+			return false;
+		else
+			guardarUsuario(user);
+		return true;
 	}
 	
-	public Usuario traerUsuario(String gmail_user) {
+	public Usuario buscarUsuario(Usuario busqueda_user) {
 		
-		return new Usuario();
+		return busqueda_user;
+		
+	}
+	
+	private void guardarUsuario(Usuario guardado_user) {
+		
 	}
 	
 

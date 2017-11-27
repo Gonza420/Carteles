@@ -1,12 +1,17 @@
 package com.ungs.espe2017.view.controller;
 
+import com.ungs.espe2017.model.domain.Usuario;
 import com.ungs.espe2017.model.service.ServiciosUsuario;
+import com.vaadin.data.Binder;
+import com.vaadin.data.ValidationException;
+import com.vaadin.data.converter.StringToLongConverter;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.PopupView;
 import com.vaadin.ui.TextField;
@@ -22,30 +27,31 @@ public class Login extends VerticalLayout implements View  {
 	private HorizontalLayout botones= new HorizontalLayout();
 	
 	//Componentes
-	private ServiciosUsuario usuarioService = new ServiciosUsuario();
-	private TextField user_field = new TextField("Ingresar tu mail:");
-	private PasswordField password_field = new PasswordField("Ingresa tu contraseña");
+	private TextField email = new TextField("Ingresar tu mail:");
+	private PasswordField password = new PasswordField("Ingresa tu contraseña");
 	private Button registrar_button = new Button("Registrarse");
 	private Button login_button = new Button("Inicio");
-	private PopupView popup = new PopupView("Pop it up", new VerticalLayout());
+	
+	//Servicios
+	private Binder<Usuario> usuarioBinder = new Binder<>();		
+	private ServiciosUsuario usuarioService = new ServiciosUsuario(); 
 	
 	public Login() {
 		// TODO Auto-generated constructor stub
 		super();
 		cargarComponentes();
 		cargarListeners();
+		checkearRegistro();
 	}
 	
 	private void  cargarComponentes() {
 		
-		formulario.addComponent(user_field);
-		formulario.addComponent(password_field);
+		formulario.addComponent(email);
+		formulario.addComponent(password);
 		botones.addComponent(registrar_button);
 		botones.addComponent(login_button);
 		addComponents(titulo,formulario,botones);
 		
-		
-		addComponent(popup);
 		
 	}
 	
@@ -54,20 +60,37 @@ public class Login extends VerticalLayout implements View  {
 		login_button.addClickListener(new Button.ClickListener() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			public void buttonClick(ClickEvent event) {
-				if(usuarioService.seAceptaLogin(formulario)) {
-					getUI().getNavigator().navigateTo(Inicio.NAME);
-				}					
-				else {
-					popup.setPopupVisible(true);
-					VerticalLayout popupContent = new VerticalLayout();
-					popupContent.addComponent(new TextField("No se pudo acceder al usuario"));
-					popupContent.addComponent(new Button("cerrar"));
-
+			public void buttonClick(ClickEvent event) 
+			{
+				Usuario user= new Usuario();
+				if(usuarioBinder.validate().isOk())
+				{
+					try {
+					      usuarioBinder.writeBean(user);
+					      if(usuarioService.seAceptaLogin(user)) 
+							{
+					    	  getUI().getNavigator().navigateTo(Inicio.NAME);
+							}					
+							else {
+							Notification.show( "El correo electrónico y la contraseña que ingresó no coinciden con nuestros registros. ",
+						                  "Por favor, vuelva a verificar y vuelva a intentarlo.",
+						                  Notification.Type.HUMANIZED_MESSAGE);
+							}
+					      
+					    } 
+					catch (ValidationException e) {
+					      Notification.show("Person could not be saved, " +
+					        "please check error messages for each field.");
+					    }
+				}
+					
+				else
+				{
 					// The component itself
-					PopupView popup = new PopupView("Pop it up", popupContent);
-					addComponent(popup);
-				}		
+					Notification.show("ERROR:",
+			                  "Ingresa bien los campos",
+			                  Notification.Type.HUMANIZED_MESSAGE);
+				}
 			}
 		});
 
@@ -81,11 +104,17 @@ public class Login extends VerticalLayout implements View  {
 
 	}
 	
-	private void cargarPopUp() {
-		// Content for the PopupView
-
-		// The component itself
+	private void checkearRegistro()
+	{
+		// Shorthand for cases without extra configuration
+		usuarioBinder.forField(email)
+		   .asRequired("Campo requerido")
+		   .bind(Usuario::getEmail, Usuario::setEmail);
 		
-		//addComponent(popup);
+		usuarioBinder.forField(password)
+		   .asRequired("Campo requerido")
+		   .bind(Usuario::getPassword, Usuario::setPassword);
 	}
+	
+	
 }
