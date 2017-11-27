@@ -15,7 +15,9 @@ public class ServiciosUsuario {
 	
 	public boolean seAceptaRegistro(Usuario user){
 		if(user.getEmail().equals( buscarUsuario(user).getEmail()))
-			return false;
+			//return false;
+			//**IMPORTANTE CUANDO CREE EL BUSCAR CAMBIAR A FALSE
+			return true;
 		else
 			guardarUsuario(user);
 		return true;
