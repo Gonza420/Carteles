@@ -118,6 +118,7 @@ public class MyUI extends UI {
 	   private void bindearNuevo() throws ValidationException{
 		   binder.bind(entrada, Post::getContenido, Post::setContenido);
 		   nuevoPost = new Post();
+		   nuevoPost.setContenido(entrada.getValue());
 		   binder.setBean(nuevoPost);
 		   if(nuevoPost != null)
 		   servicio.save(nuevoPost);
