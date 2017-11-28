@@ -33,21 +33,21 @@ public class ServiciosUsuario {
 	
 
 	public boolean seAceptaLogin(String email, String password){
-//		if(email.equals( buscarUsuario(email).getEmail()))
-//			return true;
-//		else
-		return true;
+		//if(email.equals(buscarUsuario(email).getEmail()))
+			return true;
+		//else
+		//return false;
 	}
 	
 	
 	public boolean seAceptaRegistro(Usuario user){
-//		if (buscarUsuario(user.getEmail()).equals(null))
-//		{
-//			save(user);
-//			return true;
-//		}
-//		else
+		//if (buscarUsuario(user.getEmail()).equals(null))
+		//{
+			save(user);
 			return true;
+		//}
+		//else
+		//	return false;
 			
 	}
 	

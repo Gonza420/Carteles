@@ -25,6 +25,8 @@ public class Post{
     
     private int cantCal;
     
+    private String nombreUsuario;
+    
     
     public Post(){
     	
@@ -33,6 +35,14 @@ public class Post{
     @GeneratedValue
     public Long getId(){
     	return id;
+    }
+    
+    public void setNombreUsuario(String nombreUsuario) {
+    	this.nombreUsuario = nombreUsuario;
+    }
+    
+    public String getNombreUsuario() {
+    	return this.nombreUsuario;
     }
     
     public String getContenido(){
@@ -48,7 +58,7 @@ public class Post{
     }
     
     public void setCalificacion(double c){
-    	this.calificacion = c;
+    	this.calificacion =  c;
     }
     
     public double getCalificacion() {
@@ -78,6 +88,7 @@ public class Post{
 		p.setCalificacion(3);
 		p.setContenido("dsa");
 		p.setCantCal(1);
+		p.setNombreUsuario("dsadsa");
 		IPostDAO dao = new IPostDAO();
 		
 		dao.crear(p);

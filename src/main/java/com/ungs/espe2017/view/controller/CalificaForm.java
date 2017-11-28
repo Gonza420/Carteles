@@ -18,6 +18,7 @@ public class CalificaForm extends FormLayout implements View {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Label label = new Label("Calificacion Actual");
+	private Label label2 = new Label("A Calificar");
 	private Button cal = new Button ("Califica!");
 	private Button cancel = new Button ("Cancelar");
 	private Slider sliderA = new Slider(1,5);
@@ -44,7 +45,7 @@ public class CalificaForm extends FormLayout implements View {
         
         HorizontalLayout actions = new HorizontalLayout (cal,cancel);
         actions.setSpacing(true);
-        addComponents(sliderA,label,slider,actions);
+        addComponents(label,sliderA,label2,slider,actions);
         cal.addClickListener(new Button.ClickListener() {
 			
 			@Override

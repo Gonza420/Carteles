@@ -69,6 +69,7 @@ public class Login extends VerticalLayout implements View  {
 				{
 					try {
 					      usuarioBinder.writeBean(user);
+					      System.out.println(user.toString());
 					      if(usuarioService.seAceptaLogin(user.getEmail(),user.getPassword())) 
 							{
 					    	  VaadinSession.getCurrent().setAttribute("username", user.getEmail());

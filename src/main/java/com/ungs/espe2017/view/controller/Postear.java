@@ -8,6 +8,7 @@ import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
@@ -65,6 +66,7 @@ public class Postear extends VerticalLayout implements View  {
 		
 		List<Post> poste = servicio.findAll();
         posteos.setItems(poste);
+        posteos.addColumn(Post::getNombreUsuario).setCaption("Usuario").setWidth(120);
         posteos.addColumn(Post::getContenido).setCaption("Posts");
        postear.setStyleName(ValoTheme.BUTTON_PRIMARY);
        postear.setClickShortcut(ShortcutAction.KeyCode.ENTER);
@@ -91,9 +93,7 @@ public class Postear extends VerticalLayout implements View  {
         mainLayout.setExpandRatio(left, 1);
         
         addComponent(mainLayout);
-//        getUI().getNavigator().addView("menu_calificacion", calificaForm);
-//        getUI().getNavigator().navigateTo("menu_calificacion");
-        
+   
 	}
 	
 	
@@ -108,6 +108,7 @@ public class Postear extends VerticalLayout implements View  {
 		   binder.bind(entrada, Post::getContenido, Post::setContenido);
 		   nuevoPost = new Post();
 		   nuevoPost.setContenido(entrada.getValue());
+		   nuevoPost.setNombreUsuario((String) VaadinSession.getCurrent().getAttribute("username"));
 		   binder.setBean(nuevoPost);
 		   if(nuevoPost != null)
 		   servicio.save(nuevoPost);

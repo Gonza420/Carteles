@@ -16,13 +16,7 @@ import com.ungs.espe2017.model.dao.IUsuarioDAO;
 
 
 @Entity
-public class Usuario implements Serializable, Cloneable{
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class Usuario{
 
 	private Long id;
 
@@ -108,9 +102,7 @@ public class Usuario implements Serializable, Cloneable{
 			p.setNombre("hola");
 			IUsuarioDAO dao = new IUsuarioDAO();
 			
-			dao.crear(p);
-			
-			System.out.println("CANTIDAD POST" + dao.cantidadPost());	
+			dao.crear(p);	
 			
 			List<Usuario> myList = new ArrayList<Usuario>();
 			myList = dao.todos();
