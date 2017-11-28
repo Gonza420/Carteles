@@ -4,8 +4,9 @@ import com.ungs.espe2017.model.domain.Usuario;
 import com.ungs.espe2017.model.service.ServiciosUsuario;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
-import com.vaadin.data.converter.StringToLongConverter;
 import com.vaadin.navigator.View;
+import com.vaadin.server.Page;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
@@ -13,12 +14,13 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.PopupView;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
  
 public class Login extends VerticalLayout implements View  {
 	//Titulo de la pagina
+	private static final long serialVersionUID = 1L;
+
 	public static final String NAME = "Loguearse";
 	
 	//Estructura
@@ -67,9 +69,15 @@ public class Login extends VerticalLayout implements View  {
 				{
 					try {
 					      usuarioBinder.writeBean(user);
-					      if(usuarioService.seAceptaLogin(user)) 
+					      if(usuarioService.seAceptaLogin(user.getEmail(),user.getPassword())) 
 							{
-					    	  getUI().getNavigator().navigateTo(Inicio.NAME);
+					    	  VaadinSession.getCurrent().setAttribute("username", user.getEmail());
+				    		  
+					    	  getUI().getNavigator().addView(Inicio.NAME, new Inicio());
+	    		                 		  
+	    		              Page.getCurrent().setUriFragment("!"+Inicio.NAME);
+					    	
+	    		              getUI().getNavigator().navigateTo(Inicio.NAME);
 							}					
 							else {
 							Notification.show( "El correo electrónico y la contraseña que ingresó no coinciden con nuestros registros. ",
@@ -98,7 +106,9 @@ public class Login extends VerticalLayout implements View  {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void buttonClick(ClickEvent event) {
+				getUI().getNavigator().addView(Registrar.NAME, new Registrar());
 				getUI().getNavigator().navigateTo(Registrar.NAME);
+				
 			}
 		});
 

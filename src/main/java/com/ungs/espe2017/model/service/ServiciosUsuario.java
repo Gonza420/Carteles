@@ -1,12 +1,11 @@
 package com.ungs.espe2017.model.service;
 
 import com.ungs.espe2017.model.domain.Usuario;
-import com.vaadin.ui.FormLayout;
 
 public class ServiciosUsuario {
 
-	public boolean seAceptaLogin(Usuario user){
-		if(user.getEmail().equals( buscarUsuario(user).getEmail()))
+	public boolean seAceptaLogin(String email, String password){
+		if(email.equals( buscarUsuario(email).getEmail()))
 			return true;
 		else
 		return false;
@@ -14,17 +13,20 @@ public class ServiciosUsuario {
 	
 	
 	public boolean seAceptaRegistro(Usuario user){
-		if(user.getEmail().equals( buscarUsuario(user).getEmail()))
+		if (buscarUsuario(user.getEmail()).equals(null))
+		{
+			guardarUsuario(user);
+			return true;
+		}
+		else
 			//return false;
 			//**IMPORTANTE CUANDO CREE EL BUSCAR CAMBIAR A FALSE
 			return true;
-		else
-			guardarUsuario(user);
-		return true;
 	}
 	
-	public Usuario buscarUsuario(Usuario busqueda_user) {
-		
+	public Usuario buscarUsuario(String email_user) {
+		Usuario busqueda_user=new Usuario();
+		busqueda_user.setEmail(email_user);
 		return busqueda_user;
 		
 	}

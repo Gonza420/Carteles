@@ -7,10 +7,8 @@ import com.vaadin.data.ValidationException;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.data.Validator;
 import com.vaadin.data.ValueContext;
-import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.data.converter.StringToLongConverter;
 import com.vaadin.navigator.View;
-import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -24,12 +22,8 @@ import com.vaadin.ui.Button.ClickEvent;
 
 public class Registrar extends VerticalLayout implements View  {
 
-		/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 		//Titulo de la pagina
+		private static final long serialVersionUID = 1L;
 		public static final String NAME = "Registrarse";
 		
 		//Estructuras
@@ -167,7 +161,10 @@ public class Registrar extends VerticalLayout implements View  {
 		}
 		
 		//creamos variables validadores para el campo que necesitamos
+		
 		private Validator<String> validadorCuil = new Validator < String > ( ) {
+			private static final long serialVersionUID = 1L;
+			
             @Override
             public ValidationResult apply ( String str, ValueContext valueContext ) {
             	if(str.length() > 9 || str.length() == 0) {
@@ -179,9 +176,10 @@ public class Registrar extends VerticalLayout implements View  {
             }
         } ;
 		
-        private Validator<Integer> convertidoCuil = Validator.from ( value -> value >= 0, "Sea mayor o igual a cero." );
+        //private Validator<Integer> convertidoCuil = Validator.from ( value -> value >= 0, "Sea mayor o igual a cero." );
         
         private Validator<String> validadorPassword =  new Validator < String > ( ) {
+        	private static final long serialVersionUID = 1L;
         		@Override
                 public ValidationResult apply ( String str, ValueContext valueContext ) {
         			if(str.equals(password.getValue())) {

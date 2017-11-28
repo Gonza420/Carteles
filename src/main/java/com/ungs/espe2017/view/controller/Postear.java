@@ -13,6 +13,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -20,9 +21,15 @@ import com.vaadin.ui.themes.ValoTheme;
 
 
 public class Postear extends VerticalLayout implements View  {
-/**
-	public static final String NAME = "Crea tu post";
-	Button postear = new Button("Postea!");
+
+	public static final String NAME = "Postear";
+	
+	public Postear() {
+		// TODO Auto-generated constructor stub
+		addComponent(new Label("ACA POSTEAS GATO"));
+		
+	}
+	/**	Button postear = new Button("Postea!");
 	TextField entrada = new TextField();
 	Grid<Post> posteos = new Grid<>();
 	

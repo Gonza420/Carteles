@@ -3,17 +3,18 @@ package com.ungs.espe2017.model.domain;
 
 import java.io.Serializable;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 
 @Entity
 public class Usuario implements Serializable, Cloneable{
 
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private String nombre;
     
