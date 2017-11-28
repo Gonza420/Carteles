@@ -41,7 +41,7 @@ public class Inicio extends VerticalLayout implements View  {
 	
 private void  cargarComponentes() {
 		
-	addComponent(new Label("ESETE ES EL INICIO GATO"));
+	addComponent(new Label("ESETE ES EL INICIO "));
 	secure = new Label("Inicio");
 	
 	currentUser = new Label("Usuario: "+(String) VaadinSession.getCurrent().getAttribute("username"));

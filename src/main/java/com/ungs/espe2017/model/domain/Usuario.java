@@ -2,8 +2,17 @@ package com.ungs.espe2017.model.domain;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Generated;
+
+import com.ungs.espe2017.model.dao.IPostDAO;
+import com.ungs.espe2017.model.dao.IUsuarioDAO;
 
 
 @Entity
@@ -13,6 +22,7 @@ public class Usuario implements Serializable, Cloneable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 
 	private Long id;
 
@@ -30,11 +40,12 @@ public class Usuario implements Serializable, Cloneable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -89,6 +100,28 @@ public class Usuario implements Serializable, Cloneable{
 	public Usuario clone() throws CloneNotSupportedException {
 		return (Usuario) super.clone();
 	}
+	
+	 public static void main(String[] args) {
+			Usuario p = new Usuario();
+			p.setEmail("Hola");;
+			p.setPassword("hola");;
+			p.setNombre("hola");
+			IUsuarioDAO dao = new IUsuarioDAO();
+			
+			dao.crear(p);
+			
+			System.out.println("CANTIDAD POST" + dao.cantidadPost());	
+			
+			List<Usuario> myList = new ArrayList<Usuario>();
+			myList = dao.todos();
+			
+			 for(Usuario user : myList)
+			 {
+			    System.out.println(user.toString());
+			 }
+			
+									
+			}
     
     
 }

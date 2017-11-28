@@ -92,6 +92,7 @@ public class Registrar extends VerticalLayout implements View  {
 					{
 						try {
 						      usuarioBinder.writeBean(user);
+						      System.out.println(user.toString());
 						      if(usuarioService.seAceptaRegistro(user)) 
 								{
 									getUI().getNavigator().navigateTo(Login.NAME);
