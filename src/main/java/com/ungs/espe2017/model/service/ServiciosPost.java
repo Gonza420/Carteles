@@ -26,6 +26,7 @@ public class ServiciosPost {
 	 
 	    public synchronized void save(Post entry) {
 	    	entry.setCalificacion(1);
+	    	entry.setCantCal(1);
 	    	dao.crear(entry);
 	    }
 	    
@@ -34,8 +35,9 @@ public class ServiciosPost {
 			myList = dao.todos();
 			return myList;
 		}
-		public synchronized void guardarCal (double c, Post post ) {
-			post.setCalificacion(c);
+		public synchronized void guardarCal (int c, Post post ) {
+			post.setCantCal(post.getCantCal() + 1);
+			post.setCalificacion( post.getCantCal() -c);
 			dao.actualizar(post);
 		}
 		

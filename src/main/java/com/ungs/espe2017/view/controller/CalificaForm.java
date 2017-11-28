@@ -26,9 +26,6 @@ public class CalificaForm extends FormLayout {
 		buildLayout();
 	}
 
-
-
-
 	private void configureComponents() {
 		cal.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		cancel.setStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -47,7 +44,7 @@ public class CalificaForm extends FormLayout {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				double value = slider.getValue();
+				int value = slider.getValue().intValue();
 				servicioPost.guardarCal(value,post);
 				setVisible(false);
 				

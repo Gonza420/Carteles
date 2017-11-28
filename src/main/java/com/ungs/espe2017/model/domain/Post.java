@@ -23,7 +23,7 @@ public class Post{
     
     private double calificacion ;
     
-    private double cantCal;
+    private int cantCal;
     
     
     public Post(){
@@ -48,14 +48,20 @@ public class Post{
     }
     
     public void setCalificacion(double c){
-    	this.calificacion = this.calificacion + c;
-    	this.cantCal ++;
+    	this.calificacion = c;
     }
     
     public double getCalificacion() {
-    	return this.calificacion/this.cantCal;
+    	return this.calificacion;
     }
     
+    public void setCantCal(int c){
+    	this.cantCal = c;
+    }
+    
+    public int getCantCal() {
+    	return this.cantCal;
+    }
     @Override
     public String toString() {
         return contenido;
@@ -71,6 +77,7 @@ public class Post{
 		Post p = new Post();
 		p.setCalificacion(3);
 		p.setContenido("dsa");
+		p.setCantCal(1);
 		IPostDAO dao = new IPostDAO();
 		
 		dao.crear(p);
